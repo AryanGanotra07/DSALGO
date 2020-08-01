@@ -28,6 +28,44 @@ def LCSDP(s1, s2, n, m):
             else:
                 T [i][j] = max(T[i-1][j], T[i][j-1])
     return T[n][m]
+
+def LCSSpaceOptimized(s1, s2,n,m):
+    size = n
+    if (m > n):
+        size = m
+    curr = [0] * (size+1)
+    prev = [0] * (size+1)
+    for i in range(1, n+1):
+        for j in range(1, m+1):
+            if (s1[i-1] == s2[j-1]):
+                curr[j] = 1 + curr[j-1]
+            else:
+                curr[j] = max(curr[j-1], prev[j])
+        prev = curr.copy()
+    return curr[size]
+
+def LCSSpaceOptimized2(s1, s2, n, m):
+    size = n
+    if (m > n):
+        size = m
+    curr = [None] * (size+1)
+    for i in range(n+1):
+        prev = curr[0]
+        for j in range(m+1):
+            backup = curr[j]
+            if (i==0 or j==0):
+                curr[j] = 0
+            else:
+                if s1[i-1] == s2[j-1]:
+                    curr[j] = 1 + prev
+                else:
+                    curr[j] = max(curr[j-1], curr[j])
+            prev = backup
+    return curr[size]
+
+            
+
+
      
 
 if __name__ == '__main__':
@@ -35,4 +73,4 @@ if __name__ == '__main__':
     s2 = "abedfhr"
     n = len(s1)
     m = len(s2)
-    print(LCSDP(s1, s2, n, m))
+    print(LCSSpaceOptimized2(s1, s2, n, m))
