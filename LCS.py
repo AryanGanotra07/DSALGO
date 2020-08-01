@@ -81,6 +81,22 @@ def printLCS(s1, s2, n, m):
     print(''.join(reversed(res)))
 
 
+def printAllLCS(x, y, n, m, T):
+    if n==0 or m==0:
+        return [""]
+    if x[n-1] == y[m-1]:
+        lcs = printAllLCS(x, y, n-1, m-1, T)
+        for i in range(len(lcs)):
+            lcs[i]+=x[n-1]
+        return lcs
+    if T[n-1][m] > T[n][m-1]:
+        return printAllLCS(x,y, n-1, m, T)
+    elif T[n-1][m] < T[n][m-1]:
+        return printAllLCS(x,y, n, m-1, T)
+    left = printAllLCS(x,y,n-1,m,T)
+    right = printAllLCS(x,y, n, m-1, T)
+    return left+right
+    
 
 
 
@@ -91,4 +107,5 @@ if __name__ == '__main__':
     s2 = "abedfhr"
     n = len(s1)
     m = len(s2)
-    printLCS(s1, s2, n, m)
+    T = LCSDP(s1, s2, n, m)
+    print(set(printAllLCS(s1, s2, n, m, T)))
