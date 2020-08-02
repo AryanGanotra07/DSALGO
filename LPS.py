@@ -23,6 +23,25 @@ def printLCS(x,y,m,n, t):
                 j -=1 
     res.reverse()
     return ''.join(res)
+
+
+def printAllLPS(x,y,m,n,t):
+    if n==0 or m==0:
+        return [""]
+    if x[m-1] == y[n-1]:
+        lcs = printAllLPS(x, y, m-1, n-1, t)
+        for i in range(len(lcs)):
+            lcs[i]+=x[m-1]
+        return lcs
+    if t[m-1][n] > t[m][n-1]:
+        return printAllLPS(x,y, m-1, n, t)
+    elif t[m-1][n] < t[m][n-1]:
+        return printAllLPS(x,y, m, n-1, t)
+    left = printAllLPS(x,y,m-1,n,t)
+    right = printAllLPS(x,y, m, n-1, t)
+    return left+right
+
+
             
 
 
@@ -39,4 +58,5 @@ if __name__ == "__main__":
     n = len(y)
     t = LCSDP(x,y,m,n)
     print(printLCS(x,y,m,n,t))
+    print(set(printAllLPS(x,y,m,n,t)))
 
