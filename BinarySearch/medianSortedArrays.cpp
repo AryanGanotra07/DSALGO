@@ -1,4 +1,7 @@
-double Solution::findMedianSortedArrays(const vector<int> &a, const vector<int> &b) {
+#include<iostream>;
+using namespace std;
+
+double findMedianSortedArrays(const vector<int> &a, const vector<int> &b) {
 int x = a.size(), y = b.size();
 if(x > y)
     return findMedianSortedArrays(b, a);
