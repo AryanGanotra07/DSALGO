@@ -16,7 +16,21 @@ def solveDP(n):
         t[i][1] = t[i-1][0]
     return t[n][0]
 
+def printStrings(n, out="", last_digit=0):
+ 
+    # if number becomes N-digit, print it
+    if n == 0:
+        print(out, end=' ')
+        return
+ 
+    # append 0 to the result and recur with one less digit
+    printStrings(n - 1, out + '0', 0)
+ 
+    # append 1 to the result and recur with one less digit
+    # only if last digit is 0
+    if last_digit == 0:
+        printStrings(n - 1, out + '1', 1)
 
 if __name__ == "__main__":
     n  = 5
-    print(solveDP(5))
+    print(printStrings(5))
