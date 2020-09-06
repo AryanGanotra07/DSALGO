@@ -18,7 +18,7 @@ def mergeSort(arr):
             arr[k] = h[j]
             j+=1
             k+=1
-            cnt+=1
+            cnt+=(mid-i)
         
             
     while i < len(l):
